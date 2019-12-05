@@ -15,10 +15,10 @@ class Block:
         self.width = width
         self.colour = colour
 
-    def set_vx(self, vx):
+    def set_vx(self, vx: int):
         self.vx = vx
 
-    def set_vy(self, vy):
+    def set_vy(self, vy: int):
         self.vy = vy
 
     # EFFECTS: updates block
