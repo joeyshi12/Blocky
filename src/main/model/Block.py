@@ -15,12 +15,6 @@ class Block:
         self.width = width
         self.colour = colour
 
-    def add_x(self, amount):
-        self.x = self.x + amount
-
-    def add_y(self, amount):
-        self.y = self.y + amount
-
     def set_vx(self, vx):
         self.vx = vx
 
@@ -29,5 +23,5 @@ class Block:
 
     # EFFECTS: updates block
     def update_block(self):
-        self.add_x(self.vx)
-        self.add_y(self.vy)
+        self.x += self.vx
+        self.y += self.vy
