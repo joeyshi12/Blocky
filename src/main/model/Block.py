@@ -21,7 +21,7 @@ class Block:
     def set_vy(self, vy: int):
         self.vy = vy
 
-    # EFFECTS: updates block
     def update_block(self):
+        """updates block position by adding vx to x and vy to y"""
         self.x += self.vx
         self.y += self.vy
