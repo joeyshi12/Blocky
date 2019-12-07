@@ -45,15 +45,23 @@ def menu_page():
 
 def info_page():
     image = pygame.image.load(r'C:\Users\j\Desktop\PycharmProjects\Blocky\src\main\data\control_info.jpg')
-    image = pygame.transform.scale(image, (width, height))
+    image_width = int(width/2)
+    image_height = int(height/2)
+    image = pygame.transform.scale(image, (image_width, image_height))
+    back_button = Button("back_button", (width / 2 - 50, height / 2 + 80), (100, 40), menu_page, "Back",
+                         pygame.font.Font("freesansbold.ttf", 12))
+    page = Page(display, [back_button])
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+            if pygame.mouse.get_pressed() == (1, 0, 0):
+                page.on_click(pygame.mouse.get_pos())
 
         display.fill(white)
-        display.blit(image, (0, 0))
+        display.blit(image, (width / 2 - image_width / 2, 0))
+        page.draw_buttons(display, pygame.mouse.get_pos(), pygame.mouse.get_pressed())
         pygame.display.update()
         clock.tick(fps)
 
