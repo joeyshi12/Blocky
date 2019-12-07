@@ -1,5 +1,4 @@
 import pygame
-from pygame.surface import Surface
 
 from src.main.model.Block import *
 from src.main.model.Bullet import Bullet
@@ -68,7 +67,7 @@ def info_page():
         clock.tick(fps)
 
 
-def is_game_over(display: Surface, block: Block, bullets: list) -> bool:
+def is_game_over(block: Block, bullets: list) -> bool:
     if block.x < 0 or block.x + block.width > display.get_width() or \
             block.y < 0 or block.y + block.height > display.get_height():
         return True
@@ -78,12 +77,17 @@ def is_game_over(display: Surface, block: Block, bullets: list) -> bool:
     return False
 
 
+def draw_bullets(bullets):
+    for bullet in bullets:
+        pygame.draw.circle(display, black, (bullet.x, bullet.y), bullet.radius)
+        bullet.update_bullet()
+
+
 def main_page():
     block_width = 80
     block_height = 60
     block = Block(width / 2 - block_width / 2, height / 2 - block_height / 2, 0, 0, block_width, block_height, black)
-    bullet1 = Bullet(display)
-    bullet2 = Bullet(display)
+    bullets = [Bullet(display) for i in range(3)]
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -94,16 +98,13 @@ def main_page():
             if event.type == pygame.KEYUP:
                 key_handle_up(block, event.key)  # key handling
 
-        if is_game_over(display, block, [bullet1, bullet2]):
-            menu_page()
         display.fill(white)
+        if is_game_over(block, bullets):
+            menu_page()
         block.update_block()  # update block
         pygame.draw.rect(display, block.colour,
                          (block.x, block.y, block.width, block.height), 0)  # render block
-        pygame.draw.circle(display, black, (bullet1.x, bullet1.y), bullet1.radius)
-        bullet1.update_bullet()
-        pygame.draw.circle(display, black, (bullet2.x, bullet2.y), bullet2.radius)
-        bullet2.update_bullet()
+        draw_bullets(bullets)
         pygame.display.update()
         clock.tick(fps)
 
