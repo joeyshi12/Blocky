@@ -23,25 +23,19 @@ white = (255, 255, 255)
 
 
 def menu_page():
-    start_button = Button("start_button", (0, 0), (100, 40), main_page, "Start",
+    start_button = Button("start_button", (0, 0), (100, 40), main, "Start",
                           pygame.font.Font("freesansbold.ttf", 12))
     info_button = Button("info_button", (0, 0), (100, 40), info_page, "Info",
                          pygame.font.Font("freesansbold.ttf", 12))
     button_list = [start_button, info_button]
     page = Page(display, button_list)
     page.arrange_buttons("vertical", (width / 2 - 50, height / 2 - 20), 100)
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-            if pygame.mouse.get_pressed() == (1, 0, 0):
-                page.on_click(pygame.mouse.get_pos())
 
-        display.fill(white)
+    def draw_fn():
         page.draw_buttons(display, pygame.mouse.get_pos(), pygame.mouse.get_pressed())
-        pygame.display.update()
-        clock.tick(fps)
+
+    while True:
+        page_loop(draw_fn, page)
 
 
 def info_page():
@@ -52,19 +46,26 @@ def info_page():
     back_button = Button("back_button", (width / 2 - 50, height / 2 + 80), (100, 40), menu_page, "Back",
                          pygame.font.Font("freesansbold.ttf", 12))
     page = Page(display, [back_button])
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-            if pygame.mouse.get_pressed() == (1, 0, 0):
-                page.on_click(pygame.mouse.get_pos())
 
-        display.fill(white)
+    def draw_fn():
         display.blit(image, (width / 2 - image_width / 2, 0))
         page.draw_buttons(display, pygame.mouse.get_pos(), pygame.mouse.get_pressed())
-        pygame.display.update()
-        clock.tick(fps)
+
+    while True:
+        page_loop(draw_fn, page)
+
+
+def page_loop(draw_fn, page):
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            quit()
+        if pygame.mouse.get_pressed() == (1, 0, 0):
+            page.on_click(pygame.mouse.get_pos())
+    display.fill(white)
+    draw_fn()
+    pygame.display.update()
+    clock.tick(fps)
 
 
 def is_game_over(block: Block, bullets: list) -> bool:
@@ -83,7 +84,7 @@ def draw_bullets(bullets):
         bullet.update_bullet()
 
 
-def main_page():
+def main():
     block_width = 80
     block_height = 60
     block = Block(width / 2 - block_width / 2, height / 2 - block_height / 2, 0, 0, block_width, block_height, black)
