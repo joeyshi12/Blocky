@@ -5,6 +5,7 @@ class Block:
     vy: int
     height: int
     width: int
+    is_alive: bool = True
 
     def __init__(self, x, y, vx, vy, width, height, colour):
         self.x = x
@@ -20,6 +21,9 @@ class Block:
 
     def set_vy(self, vy: int):
         self.vy = vy
+
+    def revive(self):
+        self.is_alive = True
 
     def update_block(self):
         """updates block position by adding vx to x and vy to y"""
