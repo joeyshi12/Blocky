@@ -6,13 +6,13 @@ class Block:
     height: int
     width: int
 
-    def __init__(self, x, y, vx, vy, height, width, colour):
+    def __init__(self, x, y, vx, vy, width, height, colour):
         self.x = x
         self.y = y
         self.vx = vx
         self.vy = vy
-        self.height = height
         self.width = width
+        self.height = height
         self.colour = colour
 
     def set_vx(self, vx: int):

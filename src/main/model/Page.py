@@ -35,27 +35,33 @@ self.buttonList, you’ll likely have to access and modify its buttonRect
 attributes such as topleft. See documentation on Rect attributes for more
 information"""
         if orientation == 'horizontal':
-            length = len(self.button_list)
-            for i in range(length):
-                button = self.button_list[i]
-                new_pos = (start_pos[0] + i * padding, start_pos[1])
-                self.button_list[i] = Button(button.identifier,
-                                             new_pos,
-                                             (button.button_rect.width, button.button_rect.height),
-                                             button.command,
-                                             button.text,
-                                             button.font)
+            self.orient_horizontal(padding, start_pos)
         elif orientation == 'vertical':
-            length = len(self.button_list)
-            for i in range(length):
-                button = self.button_list[i]
-                new_pos = (start_pos[0], start_pos[1] + i * padding)
-                self.button_list[i] = Button(button.identifier,
-                                             new_pos,
-                                             (button.button_rect.width, button.button_rect.height),
-                                             button.command,
-                                             button.text,
-                                             button.font)
+            self.orient_vertical(padding, start_pos)
+
+    def orient_vertical(self, padding, start_pos):
+        length = len(self.button_list)
+        for i in range(length):
+            button = self.button_list[i]
+            new_pos = (start_pos[0], start_pos[1] + i * padding)
+            self.button_list[i] = Button(button.identifier,
+                                         new_pos,
+                                         (button.button_rect.width, button.button_rect.height),
+                                         button.command,
+                                         button.text,
+                                         button.font)
+
+    def orient_horizontal(self, padding, start_pos):
+        length = len(self.button_list)
+        for i in range(length):
+            button = self.button_list[i]
+            new_pos = (start_pos[0] + i * padding, start_pos[1])
+            self.button_list[i] = Button(button.identifier,
+                                         new_pos,
+                                         (button.button_rect.width, button.button_rect.height),
+                                         button.command,
+                                         button.text,
+                                         button.font)
 
     def draw_buttons(self, display: Surface, mouse_pos: tuple, clicking: bool):
         """Draws the buttons in this Page’s buttonList"""

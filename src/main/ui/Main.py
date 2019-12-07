@@ -11,24 +11,22 @@ clock = pygame.time.Clock()
 
 width = 600
 height = 400
-block_width = 80
-block_height = 60
+display = pygame.display.set_mode((width, height))
 fps = 100
+
 red = (255, 0, 0)
 green = (0, 255, 0)
 blue = (0, 0, 255)
 black = (0, 0, 0)
 white = (255, 255, 255)
-block = Block(width / 2 - block_width / 2, height / 2 - block_height / 2, 0, 0, block_height, block_width, black)
 
 
 def menu_page():
-    display = pygame.display.set_mode((width, height))
     start_button = Button("start_button", (0, 0), (100, 40), main_page, "Start",
                           pygame.font.Font("freesansbold.ttf", 12))
-    settings_button = Button("settings_button", (0, 0), (100, 40), main_page, "Settings",
-                             pygame.font.Font("freesansbold.ttf", 12))
-    button_list = [start_button, settings_button]
+    info_button = Button("info_button", (0, 0), (100, 40), info_page, "Info",
+                         pygame.font.Font("freesansbold.ttf", 12))
+    button_list = [start_button, info_button]
     page = Page(display, button_list)
     page.arrange_buttons("vertical", (width / 2 - 50, height / 2 - 20), 100)
     while True:
@@ -42,11 +40,28 @@ def menu_page():
         display.fill(white)
         page.draw_buttons(display, pygame.mouse.get_pos(), pygame.mouse.get_pressed())
         pygame.display.update()
-        clock.tick(200)
+        clock.tick(fps)
+
+
+def info_page():
+    image = pygame.image.load(r'C:\Users\j\Desktop\PycharmProjects\Blocky\src\main\data\control_info.jpg')
+    image = pygame.transform.scale(image, (width, height))
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+        display.fill(white)
+        display.blit(image, (0, 0))
+        pygame.display.update()
+        clock.tick(fps)
 
 
 def main_page():
-    display = pygame.display.set_mode((width, height))
+    block_width = 80
+    block_height = 60
+    block = Block(width / 2 - block_width / 2, height / 2 - block_height / 2, 0, 0, block_width, block_height, black)
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
