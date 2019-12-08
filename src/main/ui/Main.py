@@ -83,7 +83,7 @@ def main():
     block_height = 60
     block = Block(width / 2 - block_width / 2, height / 2 - block_height / 2, 0, 0,
                   block_width, block_height, black)
-    bullets = [Bullet(display) for i in range(1)]
+    bullets = [Bullet(display) for i in range(2)]
     game_run = GameRun(display, block, bullets)
     while True:
         for event in pygame.event.get():
