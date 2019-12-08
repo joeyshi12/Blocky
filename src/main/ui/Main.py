@@ -4,6 +4,7 @@ from src.main.model.Block import *
 from src.main.model.Bullet import Bullet
 from src.main.model.Button import Button
 from src.main.model.Page import Page
+from src.main.ui.GameRun import GameRun
 from src.main.ui.KeyHandling import key_handle_down, key_handle_up
 
 pygame.init()
@@ -68,16 +69,6 @@ def page_loop(draw_fn, page):
     clock.tick(fps)
 
 
-def is_game_over(block: Block, bullets: list) -> bool:
-    if block.x < 0 or block.x + block.width > display.get_width() or \
-            block.y < 0 or block.y + block.height > display.get_height():
-        return True
-    for bullet in bullets:
-        if block.x <= bullet.x <= block.x + block.width and block.y <= bullet.y <= block.y + block.height:
-            return True
-    return False
-
-
 def draw_bullets(bullets):
     for bullet in bullets:
         pygame.draw.circle(display, black, (bullet.x, bullet.y), bullet.radius)
@@ -87,8 +78,10 @@ def draw_bullets(bullets):
 def main():
     block_width = 80
     block_height = 60
-    block = Block(width / 2 - block_width / 2, height / 2 - block_height / 2, 0, 0, block_width, block_height, black)
-    bullets = [Bullet(display) for i in range(3)]
+    block = Block(width / 2 - block_width / 2, height / 2 - block_height / 2, 0, 0,
+                  block_width, block_height, black)
+    bullets = [Bullet(display, block) for i in range(1)]
+    game_run = GameRun(display, block, bullets)
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -100,12 +93,10 @@ def main():
                 key_handle_up(block, event.key)  # key handling
 
         display.fill(white)
-        if is_game_over(block, bullets):
+        if game_run.is_game_over():
             menu_page()
-        block.update_block()  # update block
-        pygame.draw.rect(display, block.colour,
-                         (block.x, block.y, block.width, block.height), 0)  # render block
-        draw_bullets(bullets)
+        game_run.draw_objects()
+        game_run.update_game()
         pygame.display.update()
         clock.tick(fps)
 

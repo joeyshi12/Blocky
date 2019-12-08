@@ -7,14 +7,15 @@ class Bullet:
     display: Surface
     x: int
     y: int
-    vx: int = rand.randint(3, 5)
-    vy: int = rand.randint(3, 5)
+    vx: int = rand.randint(2, 4)
+    vy: int = rand.randint(2, 4)
     radius: int = 10
 
-    def __init__(self, display):
+    def __init__(self, display, block):
         self.display = display
         self.x = rand.randint(0, display.get_width())
         self.y = rand.randint(0, display.get_height())
+        self.block = block
 
     def set_vx(self, vx: int):
         self.vx = vx
