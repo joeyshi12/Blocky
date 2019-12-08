@@ -72,7 +72,7 @@ def page_loop(draw_fn, page):
 def draw_bullets(bullets):
     for bullet in bullets:
         pygame.draw.circle(display, black, (bullet.x, bullet.y), bullet.radius)
-        bullet.update_bullet()
+        bullet.update()
 
 
 def main():
@@ -80,7 +80,7 @@ def main():
     block_height = 60
     block = Block(width / 2 - block_width / 2, height / 2 - block_height / 2, 0, 0,
                   block_width, block_height, black)
-    bullets = [Bullet(display, block) for i in range(1)]
+    bullets = [Bullet(display) for i in range(1)]
     game_run = GameRun(display, block, bullets)
     while True:
         for event in pygame.event.get():

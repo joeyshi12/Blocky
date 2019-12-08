@@ -16,8 +16,8 @@ class GameRun:
 
     def collide_bullet(self) -> bool:
         for bullet in self.bullets:
-            if bullet.block.x <= bullet.x <= bullet.block.x + bullet.block.width and \
-                    bullet.block.y <= bullet.y <= bullet.block.y + bullet.block.height:
+            if self.block.x <= bullet.x <= self.block.x + self.block.width and \
+                    self.block.y <= bullet.y <= self.block.y + self.block.height:
                 return True
         return False
 
@@ -25,13 +25,13 @@ class GameRun:
         return self.collide_wall() or self.collide_bullet()
 
     def update_game(self):
-        self.block.update_block()
+        self.block.update()
         for bullet in self.bullets:
-            bullet.update_bullet()
+            bullet.update()
 
     def draw_objects(self):
         pygame.draw.rect(self.display, self.block.colour,
                          (self.block.x, self.block.y, self.block.width, self.block.height), 0)  # render block
         for bullet in self.bullets:
             pygame.draw.circle(self.display, (0, 0, 0), (bullet.x, bullet.y), bullet.radius)
-            bullet.update_bullet()
+            bullet.update()

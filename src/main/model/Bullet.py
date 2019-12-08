@@ -11,11 +11,10 @@ class Bullet:
     vy: int = rand.randint(2, 4)
     radius: int = 10
 
-    def __init__(self, display, block):
+    def __init__(self, display):
         self.display = display
         self.x = rand.randint(0, display.get_width())
         self.y = rand.randint(0, display.get_height())
-        self.block = block
 
     def set_vx(self, vx: int):
         self.vx = vx
@@ -23,7 +22,7 @@ class Bullet:
     def set_vy(self, vy: int):
         self.vy = vy
 
-    def update_bullet(self):
+    def update(self):
         """updates block position by adding vx to x and vy to y"""
         self.x += self.vx
         self.y += self.vy
