@@ -9,6 +9,9 @@ from src.main.ui.KeyHandling import key_handle_down, key_handle_up
 
 pygame.init()
 pygame.display.set_caption('Blocky World Program')
+icon = pygame.image.load(r'C:\Users\j\Desktop\PycharmProjects\Blocky\src\main\data\chiken.jpg')
+icon = pygame.transform.scale(icon, (32, 32))
+pygame.display.set_icon(icon)
 clock = pygame.time.Clock()
 
 width = 600
