@@ -4,7 +4,7 @@ A simple user-interactive game developed on Pygame. You control a movable block 
 
 ## Getting Started
 
-The file for running this program can be found at src/main/ui/Main.py. Within the main function, there are parameters that can be changed, such as the amount of bullets obstacles. 
+The file for running this program can be found at src/main/ui/Main.py. Within the main function, there are parameters that can be changed, such as the amount of bullet obstacles. 
 
 
 ## Running the tests
