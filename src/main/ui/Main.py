@@ -27,6 +27,8 @@ white = (255, 255, 255)
 
 
 def menu_page():
+    font = pygame.font.SysFont("freesansbold", 72)
+    title = font.render("BLOCKY", True, red)
     start_button = Button("start_button", (0, 0), (100, 40), main, "Start",
                           pygame.font.Font("freesansbold.ttf", 12))
     info_button = Button("info_button", (0, 0), (100, 40), info_page, "Info",
@@ -36,6 +38,7 @@ def menu_page():
     page.arrange_buttons("vertical", (width / 2 - 50, height / 2 - 20), 100)
 
     def draw_fn():
+        display.blit(title, (width / 2 - title.get_width() / 2, 50))
         page.draw_buttons(display, pygame.mouse.get_pos(), pygame.mouse.get_pressed())
 
     while True:
