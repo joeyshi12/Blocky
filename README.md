@@ -10,3 +10,8 @@ The file for running this program can be found at src/main/ui/Main.py. Within th
 ## Running the tests
 
 Unittests are provided within src/test.
+
+## Snapshots
+
+![Capture4](https://user-images.githubusercontent.com/46363213/70502790-9eeee000-1ad6-11ea-87e3-8c87e3cb25bc.PNG)
+![Capture5](https://user-images.githubusercontent.com/46363213/70502787-9c8c8600-1ad6-11ea-83e7-92fdcbd936d6.PNG)
