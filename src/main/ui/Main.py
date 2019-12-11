@@ -4,12 +4,12 @@ from src.main.model.Block import *
 from src.main.model.Bullet import Bullet
 from src.main.model.Button import Button
 from src.main.model.Page import Page
-from src.main.model.GameRun import GameRun
-from src.main.model.KeyHandling import key_handle_down, key_handle_up
+from src.main.ui.GameRun import GameRun
+from src.main.ui.KeyHandling import key_handle_down, key_handle_up
 
 pygame.init()
 pygame.display.set_caption('Blocky World Program')
-icon = pygame.image.load(r'src\main\data\chiken.jpg')
+icon = pygame.image.load(r'src/data/chiken.jpg')
 icon = pygame.transform.scale(icon, (32, 32))
 pygame.display.set_icon(icon)
 clock = pygame.time.Clock()
@@ -46,7 +46,7 @@ def menu_page():
 
 
 def info_page():
-    image = pygame.image.load(r'src\main\data\control_info.jpg')
+    image = pygame.image.load(r'src/data/control_info.jpg')
     image_width = int(width / 2)
     image_height = int(height / 2)
     image = pygame.transform.scale(image, (image_width, image_height))

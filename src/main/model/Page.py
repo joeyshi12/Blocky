@@ -1,4 +1,3 @@
-import pygame
 from pygame.surface import Surface
 
 from src.main.model.Button import Button
