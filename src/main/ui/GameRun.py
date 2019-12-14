@@ -12,7 +12,7 @@ class GameRun:
 
     def collide_wall(self) -> bool:
         return self.block.x < 0 or self.block.x + self.block.width > self.display.get_width() or \
-               self.block.y < 0 or self.block.y + self.block.height > self.display.get_height()
+               self.block.y <  0 or self.block.y + self.block.height > self.display.get_height()
 
     def collide_bullet(self) -> bool:
         for bullet in self.bullets:

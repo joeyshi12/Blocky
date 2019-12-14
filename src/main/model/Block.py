@@ -1,12 +1,13 @@
 class Block:
-    x: int
-    y: int
-    vx: int
-    vy: int
+    x: float
+    y: float
+    vx: float
+    vy: float
     height: int
     width: int
+    colour: tuple
 
-    def __init__(self, x, y, vx, vy, width, height, colour):
+    def __init__(self, x: float, y: float, vx: float, vy: float, width: int, height: int, colour: tuple):
         self.x = x
         self.y = y
         self.vx = vx
