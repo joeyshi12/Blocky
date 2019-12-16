@@ -4,10 +4,14 @@ A simple user-interactive game developed on Pygame. You control a movable block 
 
 ## Getting Started
 
-Run the project from shell
-```shell script
-python main.py
-``` 
+1. Clone project \
+```git clone https://github.com/joeyshi12/blocky.git```
+
+2. Import pygame \
+```pip install --user pygame```
+
+3. Run the project from shell \
+```python main.py``` 
 
 ## Snapshots
 
