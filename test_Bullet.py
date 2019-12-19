@@ -6,7 +6,7 @@ from pygame.surface import Surface
 from model.Bullet import Bullet
 
 
-class BulletTest(unittest.TestCase):
+class TestBullet(unittest.TestCase):
     display: Surface
     test_bullet: Bullet
 

@@ -2,7 +2,7 @@ import unittest
 from model.Block import *
 
 
-class BlockTest(unittest.TestCase):
+class TestBlock(unittest.TestCase):
     test_block: Block
 
     def setUp(self) -> None:
