@@ -5,7 +5,7 @@ import pygame
 from model.GameRun import GameRun
 
 
-class GameRunTest(unittest.TestCase):
+class TestGameRun(unittest.TestCase):
     test_gameRun: GameRun
 
     def setUp(self) -> None:
