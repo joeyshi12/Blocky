@@ -1,15 +1,16 @@
+import pygame
 from pygame.surface import Surface
 
 from model.Button import Button
 
 
 class Page:
-    def __init__(self, background: Surface, button_list=None):
+    def __init__(self, display: Surface, button_list=None):
         """Initializes background and buttonList. Background may be either a
 blank canvas or an image"""
         if button_list is None:
             button_list = []
-        self.background = background
+        self.display = display
         self.button_list = button_list
 
     def on_click(self, pos: tuple) -> Button:
@@ -29,10 +30,7 @@ button’s command through button.execute() and return that Button"""
     def arrange_buttons(self, orientation: str, start_pos: tuple, padding: int):
         """Arranges all of the buttons in self.button_list to be separated lined
 up in either 'horizontal' or 'vertical' orientation starting at “start_pos”
-with “padding” amount of separation between these buttons. For each Button in
-self.buttonList, you’ll likely have to access and modify its buttonRect
-attributes such as topleft. See documentation on Rect attributes for more
-information"""
+with “padding” amount of separation between these buttons"""
         if orientation == 'horizontal':
             self.orient_horizontal(padding, start_pos)
         elif orientation == 'vertical':
@@ -67,8 +65,16 @@ information"""
         for button in self.button_list:
             button.draw_button(display, mouse_pos, clicking)
 
-    def create_display(self, main_display: Surface):
-        """ This will be page’s event and draw loop. First, draw self.background
-onto main_display through the blit() method. For now, we won’t handle any
-keyboard inputs so the only input we will check are mouse button presses."""
-        pass
+    def page_loop(self, draw_fn):
+        """Runs page loop"""
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+                if pygame.mouse.get_pressed() == (1, 0, 0):
+                    self.on_click(pygame.mouse.get_pos())
+            self.display.fill((255, 255, 255))
+            draw_fn()
+            self.draw_buttons(self.display, pygame.mouse.get_pos(), pygame.mouse.get_pressed())
+            pygame.display.update()

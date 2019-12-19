@@ -46,7 +46,6 @@ a rectangle in which the rendered text will be placed in"""
     def draw_button(self, display: Surface, mouse_pos: tuple, clicking: bool):
         """execute draw_text on display if text exists and draw_state on display
 with state given by:
-
 is_within and clicking     -> 'clicking'
 is_within and not clicking -> 'within'
 not is_within              -> 'regular'"""

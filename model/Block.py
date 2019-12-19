@@ -7,11 +7,9 @@ class Block:
     width: int
     colour: tuple
 
-    def __init__(self, x: float, y: float, vx: float, vy: float, width: int, height: int, colour: tuple):
-        self.x = x
-        self.y = y
-        self.vx = vx
-        self.vy = vy
+    def __init__(self, pos: tuple, width: int, height: int, colour: tuple):
+        self.x, self.y = pos
+        self.vx, self.vy = (0, 0)
         self.width = width
         self.height = height
         self.colour = colour
