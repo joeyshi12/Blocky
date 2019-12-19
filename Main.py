@@ -10,8 +10,8 @@ icon = pygame.image.load('data/chiken.jpg')
 icon = pygame.transform.scale(icon, (32, 32))
 pygame.display.set_icon(icon)
 clock = pygame.time.Clock()
-display_width = 600
-display_height = 400
+display_width = 800
+display_height = 500
 display = pygame.display.set_mode((display_width, display_height))
 
 red = (255, 0, 0)

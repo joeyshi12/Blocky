@@ -12,7 +12,7 @@ class GameRun(Subject):
     BLOCK_WIDTH: int = 80
     BLOCK_HEIGHT: int = 60
     BLOCK_COLOUR: tuple = (0, 0, 0)
-    NUMBER_OF_BULLETS: int = 2
+    NUMBER_OF_BULLETS: int = 3
 
     def __init__(self, display: Surface):
         self.display = display
