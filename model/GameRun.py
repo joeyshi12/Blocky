@@ -25,8 +25,8 @@ class GameRun(Subject):
         for i in range(self.NUMBER_OF_BULLETS):
             bullet_x = rand.randint(0, display.get_width())
             bullet_y = rand.randint(0, display.get_height())
-            bullet_vx = rand.randint(5, 7)
-            bullet_vy = rand.randint(5, 7)
+            bullet_vx = rand.choice([-10, -9, -8, -7, 7, 8, 9, 10])
+            bullet_vy = rand.choice([-10, -9, -8, -7, 7, 8, 9, 10])
             bullet = Bullet((bullet_x, bullet_y), (bullet_vx, bullet_vy))
             self.add_observer(bullet)
 
@@ -58,7 +58,7 @@ class GameRun(Subject):
         self.notify_observers(self.display)
 
     def draw(self):
-        """draws block and observers on display"""
+        """draws display for game-loop"""
         pygame.draw.rect(self.display, self.block.colour,
                          (self.block.x, self.block.y, self.block.width, self.block.height), 0)
         for bullet in self.observers:
@@ -67,22 +67,22 @@ class GameRun(Subject):
     def key_handle_down(self, key: str):
         """updates the velocity of block based on the key pressed down"""
         if key == pygame.K_w:
-            self.block.set_vy(-6)
+            self.block.vy = -6
         elif key == pygame.K_a:
-            self.block.set_vx(-6)
+            self.block.vx = -6
         elif key == pygame.K_s:
-            self.block.set_vy(6)
+            self.block.vy = 6
         elif key == pygame.K_d:
-            self.block.set_vx(6)
+            self.block.vx = 6
 
     def key_handle_up(self, key: str):
         """for any direction, if the block has velocity in the same direction as its corresponding key, then
         the velocity in that direction is set back to 0"""
         if key == pygame.K_w and self.block.vy == -6:
-            self.block.set_vy(0)
+            self.block.vy = 0
         elif key == pygame.K_a and self.block.vx == -6:
-            self.block.set_vx(0)
+            self.block.vx = 0
         elif key == pygame.K_s and self.block.vy == 6:
-            self.block.set_vy(0)
+            self.block.vy = 0
         elif key == pygame.K_d and self.block.vx == 6:
-            self.block.set_vx(0)
+            self.block.vx = 0

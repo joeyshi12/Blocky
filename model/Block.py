@@ -14,12 +14,6 @@ class Block:
         self.height = height
         self.colour = colour
 
-    def set_vx(self, vx: int):
-        self.vx = vx
-
-    def set_vy(self, vy: int):
-        self.vy = vy
-
     def update(self):
         """updates block position by adding vx to x and vy to y"""
         self.x += self.vx

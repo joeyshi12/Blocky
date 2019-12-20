@@ -16,11 +16,12 @@ display = pygame.display.set_mode((display_width, display_height))
 
 red = (255, 0, 0)
 white = (255, 255, 255)
+black = (0, 0, 0)
 
 
 def menu_page():
-    font = pygame.font.SysFont("freesansbold", 72)
-    title = font.render("BLOCKY", True, red)
+    title_font = pygame.font.SysFont("freesansbold", 72)
+    title = title_font.render("BLOCKY", True, red)
     start_button = Button("start_button", (0, 0), (100, 40), main, "Start",
                           pygame.font.Font("freesansbold.ttf", 12))
     info_button = Button("info_button", (0, 0), (100, 40), info_page, "Info",

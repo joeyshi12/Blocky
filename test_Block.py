@@ -13,8 +13,8 @@ class TestBlock(unittest.TestCase):
         self.assertEqual(self.test_block.x, 0)
         self.assertEqual(self.test_block.y, 0)
 
-        self.test_block.set_vx(10)
-        self.test_block.set_vy(10)
+        self.test_block.vx = 10
+        self.test_block.vy = 10
         self.test_block.update()
 
         self.assertEqual(self.test_block.x, 10)
