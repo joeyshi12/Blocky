@@ -16,7 +16,8 @@ class Bullet(Observer):
         self.vx, self.vy = vel
 
     def update(self, display: Surface):
-        """updates block position by adding vx to x and vy to y"""
+        """updates bullet position by adding vx to x and vy to y;
+        if bullet hits wall, its velocity is reflected"""
         self.x += self.vx
         self.y += self.vy
         if self.x < 0:
