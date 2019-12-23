@@ -31,7 +31,7 @@ def menu_page():
     page.arrange_buttons("vertical", (display_width / 2 - 50, display_height / 2 - 20), 100)
 
     def draw_fn():
-        display.blit(title, (display_width / 2 - title.get_width() / 2, 100))
+        display.blit(title, (int(display_width / 2 - title.get_width() / 2), 100))
 
     page.page_loop(draw_fn)
 
