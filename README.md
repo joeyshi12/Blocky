@@ -10,8 +10,7 @@ A simple user-interactive game developed on Pygame. You control a movable block 
 2. Install pygame. \
 ```pip install --user pygame```
 
-3. Run Main.py from shell. \
-```python main.py``` 
+3. Inside of project folder, run main.cmd.
 
 ## Snapshots
 
