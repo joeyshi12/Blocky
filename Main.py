@@ -19,36 +19,17 @@ white = (255, 255, 255)
 black = (0, 0, 0)
 
 
-def menu_page():
-    title_font = pygame.font.SysFont("freesansbold", 72)
-    title = title_font.render("BLOCKY", True, red)
-    start_button = Button("start_button", (0, 0), (100, 40), main, "Start",
-                          pygame.font.Font("freesansbold.ttf", 12))
-    info_button = Button("info_button", (0, 0), (100, 40), info_page, "Info",
-                         pygame.font.Font("freesansbold.ttf", 12))
-    button_list = [start_button, info_button]
-    page = Page(display, button_list)
-    page.arrange_buttons("vertical", (display_width / 2 - 50, display_height / 2 - 20), 100)
-
+def menu():
     def draw_fn():
         display.blit(title, (int(display_width / 2 - title.get_width() / 2), 100))
 
-    page.page_loop(draw_fn)
+    menu_page.page_loop(draw_fn)
 
 
 def info_page():
-    image = pygame.image.load('data/control_info.jpg')
-    image_width = int(display_width / 2)
-    image_height = int(display_height / 2)
-    image = pygame.transform.scale(image, (image_width, image_height))
-    back_button = Button("back_button", (display_width / 2 - 50, display_height / 2 + 80), (100, 40), menu_page, "Back",
-                         pygame.font.Font("freesansbold.ttf", 12))
-    page = Page(display, [back_button])
-
     def draw_fn():
         display.blit(image, (display_width / 2 - image_width / 2, 0))
-
-    page.page_loop(draw_fn)
+    info_page.page_loop(draw_fn)
 
 
 def main():
@@ -64,7 +45,7 @@ def main():
         display.fill(white)
         if game_run.is_game_over():
             game_run.reset()
-            menu_page()
+            menu()
         game_run.draw()
         game_run.update_game()
         pygame.display.update()
@@ -72,5 +53,26 @@ def main():
 
 
 if __name__ == '__main__':
+    # Menu Components
+    title_font = pygame.font.SysFont("freesansbold", 72)
+    title = title_font.render("BLOCKY", True, red)
+    start_button = Button("start_button", (0, 0), (100, 40), main, "Start",
+                          pygame.font.Font("freesansbold.ttf", 12))
+    info_button = Button("info_button", (0, 0), (100, 40), info_page, "Info",
+                         pygame.font.Font("freesansbold.ttf", 12))
+    button_list = [start_button, info_button]
+    menu_page = Page(display, button_list)
+    menu_page.arrange_buttons("vertical", (display_width / 2 - 50, display_height / 2 - 20), 100)
+
+    # Info Components
+    image = pygame.image.load('data/control_info.jpg')
+    image_width = int(display_width / 2)
+    image_height = int(display_height / 2)
+    image = pygame.transform.scale(image, (image_width, image_height))
+    back_button = Button("back_button", (display_width / 2 - 50, display_height / 2 + 80), (100, 40), menu_page, "Back",
+                         pygame.font.Font("freesansbold.ttf", 12))
+    info_page = Page(display, [back_button])
+
+    # Run Game
     game_run = GameRun(display)
-    menu_page()
+    menu()
