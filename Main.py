@@ -69,7 +69,7 @@ if __name__ == '__main__':
     image_width = int(display_width / 2)
     image_height = int(display_height / 2)
     image = pygame.transform.scale(image, (image_width, image_height))
-    back_button = Button("back_button", (display_width / 2 - 50, display_height / 2 + 80), (100, 40), menu_page, "Back",
+    back_button = Button("back_button", (display_width / 2 - 50, display_height / 2 + 80), (100, 40), menu, "Back",
                          pygame.font.Font("freesansbold.ttf", 12))
     info_page = Page(display, [back_button])
 

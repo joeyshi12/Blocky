@@ -26,8 +26,8 @@ class GameRun(Subject):
         for i in range(self.NUMBER_OF_BULLETS):
             bullet_x = rand.randint(0, display.get_width())
             bullet_y = rand.randint(0, display.get_height())
-            bullet_vx = rand.choice([-10, -9, -8, -7, 7, 8, 9, 10])
-            bullet_vy = rand.choice([-10, -9, -8, -7, 7, 8, 9, 10])
+            bullet_vx = rand.choice([-8, -7, -6, -5, 5, 6, 7, 8])
+            bullet_vy = rand.choice([-8, -7, -6, -5, 5, 6, 7, 8])
             bullet = Bullet((bullet_x, bullet_y), (bullet_vx, bullet_vy))
             self.add_observer(bullet)
 
