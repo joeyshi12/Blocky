@@ -5,12 +5,13 @@ from model.Observer import Observer
 
 
 class Bullet(Observer):
+    RADIUS: int = 10
+    COLOUR: tuple = (0, 0, 255)
     display: Surface
     x: int
     y: int
     vx: int
     vy: int
-    radius: int = 10
 
     def __init__(self, display: Surface, pos: tuple, vel: tuple):
         self.display = display
@@ -33,4 +34,4 @@ class Bullet(Observer):
 
     def draw(self):
         """draws bullet on display"""
-        pygame.draw.circle(self.display, (0, 0, 0), (self.x, self.y), self.radius)
+        pygame.draw.circle(self.display, self.COLOUR, (self.x, self.y), self.RADIUS)

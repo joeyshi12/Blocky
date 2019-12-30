@@ -74,7 +74,7 @@ class Page:
                     quit()
                 if pygame.mouse.get_pressed() == (1, 0, 0):
                     self.on_click(pygame.mouse.get_pos())
-            self.display.fill((255, 255, 255))
+            self.display.fill((0, 0, 0))
             draw_fn()
             self.draw_buttons(self.display, pygame.mouse.get_pos(), pygame.mouse.get_pressed() == (1, 0, 0))
             pygame.display.update()

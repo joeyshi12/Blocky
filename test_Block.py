@@ -7,7 +7,7 @@ class TestBlock(unittest.TestCase):
 
     def setUp(self) -> None:
         display = pygame.display.set_mode((100, 100))
-        self.block = Block(display, (0, 0), 20, 30, (0, 0, 0))
+        self.block = Block(display, (0, 0))
 
     def test_update(self):
         self.block.update()

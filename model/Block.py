@@ -3,22 +3,19 @@ from pygame.surface import Surface
 
 
 class Block:
+    WIDTH: int = 80
+    HEIGHT: int = 60
+    COLOUR: tuple = (255, 0, 0)
     display: Surface
-    x: float
-    y: float
-    vx: float
-    vy: float
-    height: int
-    width: int
-    colour: tuple
+    x: int
+    y: int
+    vx: int
+    vy: int
 
-    def __init__(self, display: Surface, pos: tuple, width: int, height: int, colour: tuple):
+    def __init__(self, display: Surface, pos: tuple):
         self.display = display
         self.x, self.y = pos
         self.vx, self.vy = (0, 0)
-        self.width = width
-        self.height = height
-        self.colour = colour
 
     def update(self):
         """updates block position by adding vx to x and vy to y"""
@@ -27,5 +24,5 @@ class Block:
 
     def draw(self):
         """draws block on display"""
-        pygame.draw.rect(self.display, self.colour,
-                         (self.x, self.y, self.width, self.height), 0)
+        pygame.draw.rect(self.display, self.COLOUR,
+                         (self.x, self.y, self.WIDTH, self.HEIGHT), 0)

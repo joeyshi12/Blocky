@@ -31,11 +31,11 @@ class Button:
     def draw_state(self, display: Surface, state: str):
         """draws rectangle with a colour depending on the given state"""
         if state == 'regular':
-            pygame.draw.rect(display, (255, 0, 0), self.button_rect)
+            pygame.draw.rect(display, (100, 100, 255), self.button_rect)
         elif state == 'within':
-            pygame.draw.rect(display, (200, 0, 0), self.button_rect)
+            pygame.draw.rect(display, (0, 0, 200), self.button_rect)
         elif state == 'clicking':
-            pygame.draw.rect(display, (255, 100, 100), self.button_rect)
+            pygame.draw.rect(display, (100, 100, 255), self.button_rect)
 
     def is_within(self, mouse_pos: tuple) -> bool:
         """returns true if mouse is inside rectangle; false otherwise"""
