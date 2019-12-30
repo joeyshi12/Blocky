@@ -52,6 +52,7 @@ def load() -> int:
 
 def main():
     ticks = 0
+    previous_high_score = load()
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -67,7 +68,7 @@ def main():
             game_run.reset()
             menu()
         game_run.draw()
-        high_score_render = high_score_font.render("High Score: " + str(max(load(), ticks)), True, red)
+        high_score_render = high_score_font.render("High Score: " + str(max(previous_high_score, ticks)), True, red)
         score_render = score_font.render("Score: " + str(ticks), True, red)
         display.blit(high_score_render, (10, 10))
         display.blit(score_render, (10, 30))

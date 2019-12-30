@@ -68,7 +68,7 @@ class GameRun(Subject):
         for bullet in self.observers:
             bullet.draw()
 
-    def key_handle_down(self, key: str):
+    def key_handle_down(self, key: int):
         """updates the velocity of block based on the key pressed down"""
         if key == pygame.K_w:
             self.block.vy = -self.BLOCK_VELOCITY
@@ -79,7 +79,7 @@ class GameRun(Subject):
         elif key == pygame.K_d:
             self.block.vx = self.BLOCK_VELOCITY
 
-    def key_handle_up(self, key: str):
+    def key_handle_up(self, key: int):
         """for any direction, if the block has velocity in the same direction as its corresponding key, then
         the velocity in that direction is set back to 0"""
         if key == pygame.K_w and self.block.vy == -self.BLOCK_VELOCITY:
