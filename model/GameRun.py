@@ -13,6 +13,7 @@ class GameRun(Subject):
     BLOCK_HEIGHT: int = 60
     BLOCK_COLOUR: tuple = (0, 0, 0)
     NUMBER_OF_BULLETS: int = 3
+    BULLET_VELOCITIES: list = [-8, -7, -6, 6, 7, 8]
     display: Surface
 
     def __init__(self, display: Surface):
@@ -24,11 +25,12 @@ class GameRun(Subject):
         self.initialize_bullets(display)
 
     def initialize_bullets(self, display: Surface):
+        """creates NUMBER_OF_BULLETS of bullets with random movement fields"""
         for i in range(self.NUMBER_OF_BULLETS):
             bullet_x = rand.randint(0, display.get_width())
             bullet_y = rand.randint(0, display.get_height())
-            bullet_vx = rand.choice([-8, -7, -6, -5, 5, 6, 7, 8])
-            bullet_vy = rand.choice([-8, -7, -6, -5, 5, 6, 7, 8])
+            bullet_vx = rand.choice(self.BULLET_VELOCITIES)
+            bullet_vy = rand.choice(self.BULLET_VELOCITIES)
             bullet = Bullet(display, (bullet_x, bullet_y), (bullet_vx, bullet_vy))
             self.add_observer(bullet)
 
@@ -44,16 +46,20 @@ class GameRun(Subject):
         return False
 
     def is_game_over(self) -> bool:
+        """returns true if block collides with wall or bullet"""
         return self.collide_wall() or self.collide_bullet()
 
     def reset(self):
-        """resets the block back to center position and clears all observers"""
+        """resets block to center position with 0 velocity and randomizes bullet movement fields"""
         self.block.x = self.display.get_width() / 2 - self.BLOCK_WIDTH / 2
         self.block.y = self.display.get_height() / 2 - self.BLOCK_HEIGHT / 2
         self.block.vx = 0
         self.block.vy = 0
-        self.observers.clear()
-        self.initialize_bullets(self.display)
+        for bullet in self.observers:
+            bullet.x = rand.randint(0, self.display.get_width())
+            bullet.y = rand.randint(0, self.display.get_height())
+            bullet.vx = rand.choice(self.BULLET_VELOCITIES)
+            bullet.vy = rand.choice(self.BULLET_VELOCITIES)
 
     def update_game(self):
         """updates game state"""
