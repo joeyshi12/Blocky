@@ -17,18 +17,19 @@ class GameRun(Subject):
 
     def __init__(self, display: Surface):
         self.display = display
-        self.block = Block((display.get_width() / 2 - self.BLOCK_WIDTH / 2,
+        self.block = Block(display,
+                           (display.get_width() / 2 - self.BLOCK_WIDTH / 2,
                             display.get_height() / 2 - self.BLOCK_HEIGHT / 2),
                            self.BLOCK_WIDTH, self.BLOCK_HEIGHT, self.BLOCK_COLOUR)
         self.initialize_bullets(display)
 
-    def initialize_bullets(self, display):
+    def initialize_bullets(self, display: Surface):
         for i in range(self.NUMBER_OF_BULLETS):
             bullet_x = rand.randint(0, display.get_width())
             bullet_y = rand.randint(0, display.get_height())
             bullet_vx = rand.choice([-8, -7, -6, -5, 5, 6, 7, 8])
             bullet_vy = rand.choice([-8, -7, -6, -5, 5, 6, 7, 8])
-            bullet = Bullet((bullet_x, bullet_y), (bullet_vx, bullet_vy))
+            bullet = Bullet(display, (bullet_x, bullet_y), (bullet_vx, bullet_vy))
             self.add_observer(bullet)
 
     def collide_wall(self) -> bool:
@@ -55,15 +56,15 @@ class GameRun(Subject):
         self.initialize_bullets(self.display)
 
     def update_game(self):
+        """updates game state"""
         self.block.update()
-        self.notify_observers(self.display)
+        self.notify_observers()
 
     def draw(self):
         """draws display for game-loop"""
-        pygame.draw.rect(self.display, self.block.colour,
-                         (self.block.x, self.block.y, self.block.width, self.block.height), 0)
+        self.block.draw()
         for bullet in self.observers:
-            pygame.draw.circle(self.display, (0, 0, 0), (bullet.x, bullet.y), bullet.radius)
+            bullet.draw()
 
     def key_handle_down(self, key: str):
         """updates the velocity of block based on the key pressed down"""

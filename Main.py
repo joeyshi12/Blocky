@@ -22,7 +22,6 @@ black = (0, 0, 0)
 def menu():
     def draw_fn():
         display.blit(title, (int(display_width / 2 - title.get_width() / 2), 100))
-
     menu_page.page_loop(draw_fn)
 
 

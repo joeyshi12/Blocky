@@ -7,6 +7,6 @@ class Subject:
     def add_observer(self, observer: Observer):
         self.observers.append(observer)
 
-    def notify_observers(self, display):
+    def notify_observers(self):
         for observer in self.observers:
-            observer.update(display)
+            observer.update()

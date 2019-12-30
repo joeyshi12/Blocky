@@ -7,7 +7,7 @@ from model.Button import Button
 class Page:
     def __init__(self, display: Surface, button_list=None):
         """Initializes background and buttonList. Background may be either a
-blank canvas or an image"""
+        blank canvas or an image"""
         if button_list is None:
             button_list = []
         self.display = display
@@ -15,8 +15,8 @@ blank canvas or an image"""
 
     def on_click(self, pos: tuple) -> Button:
         """This method is called when the mouse is pressed down in an event
-loop. Check every button to see if “pos” is within them. If so, execute the
-button’s command through button.execute() and return that Button"""
+        loop. Check every button to see if “pos” is within them. If so, execute the
+        button’s command through button.execute() and return that Button"""
         for button in self.button_list:
             if button.is_within(pos):
                 button.execute()
@@ -29,8 +29,8 @@ button’s command through button.execute() and return that Button"""
 
     def arrange_buttons(self, orientation: str, start_pos: tuple, padding: int):
         """Arranges all of the buttons in self.button_list to be separated lined
-up in either 'horizontal' or 'vertical' orientation starting at “start_pos”
-with “padding” amount of separation between these buttons"""
+        up in either 'horizontal' or 'vertical' orientation starting at “start_pos”
+        with “padding” amount of separation between these buttons"""
         if orientation == 'horizontal':
             self.orient_horizontal(padding, start_pos)
         elif orientation == 'vertical':
@@ -76,5 +76,5 @@ with “padding” amount of separation between these buttons"""
                     self.on_click(pygame.mouse.get_pos())
             self.display.fill((255, 255, 255))
             draw_fn()
-            self.draw_buttons(self.display, pygame.mouse.get_pos(), pygame.mouse.get_pressed())
+            self.draw_buttons(self.display, pygame.mouse.get_pos(), pygame.mouse.get_pressed() == (1, 0, 0))
             pygame.display.update()

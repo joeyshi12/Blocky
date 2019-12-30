@@ -16,7 +16,7 @@ class Button:
 
     def render_text(self) -> (Surface, Rect):
         """returns a rendered text with proper font in black colour and
-a rectangle in which the rendered text will be placed in"""
+        a rectangle in which the rendered text will be placed in"""
         text_surface = self.font.render(self.text, True, (0, 0, 0))
         return text_surface, text_surface.get_rect()
 
@@ -33,9 +33,9 @@ a rectangle in which the rendered text will be placed in"""
         if state == 'regular':
             pygame.draw.rect(display, (255, 0, 0), self.button_rect)
         elif state == 'within':
-            pygame.draw.rect(display, (0, 255, 0), self.button_rect)
+            pygame.draw.rect(display, (200, 0, 0), self.button_rect)
         elif state == 'clicking':
-            pygame.draw.rect(display, (0, 0, 255), self.button_rect)
+            pygame.draw.rect(display, (255, 100, 100), self.button_rect)
 
     def is_within(self, mouse_pos: tuple) -> bool:
         """returns true if mouse is inside rectangle; false otherwise"""
@@ -45,26 +45,17 @@ a rectangle in which the rendered text will be placed in"""
 
     def draw_button(self, display: Surface, mouse_pos: tuple, clicking: bool):
         """execute draw_text on display if text exists and draw_state on display
-with state given by:
-is_within and clicking     -> 'clicking'
-is_within and not clicking -> 'within'
-not is_within              -> 'regular'"""
-        if (self.text is not None) and (self.font is not None):
-            if self.is_within(mouse_pos):
-                if clicking:
-                    self.draw_state(display, 'clicking')
-                    self.draw_text(display)
-                else:
-                    self.draw_state(display, 'within')
-                    self.draw_text(display)
+        with state given by:
+        is_within and clicking     -> 'clicking'
+        is_within and not clicking -> 'within'
+        not is_within              -> 'regular'"""
+        if self.is_within(mouse_pos):
+            if clicking:
+                self.draw_state(display, 'clicking')
             else:
-                self.draw_state(display, 'regular')
-                self.draw_text(display)
+                self.draw_state(display, 'within')
         else:
-            if self.is_within(mouse_pos):
-                if clicking:
-                    self.draw_state(display, 'clicking')
-                else:
-                    self.draw_state(display, 'within')
-            else:
-                self.draw_state(display, 'regular')
+            self.draw_state(display, 'regular')
+
+        if (self.text is not None) and (self.font is not None):
+            self.draw_text(display)
