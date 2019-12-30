@@ -85,7 +85,7 @@ title_font = pygame.font.SysFont(font_style, 72)
 title = title_font.render("BLOCKY", True, red)
 start_button = Button("start_button", (0, 0), button_dimensions, main, "Start",
                       pygame.font.SysFont(font_style, 12))
-info_button = Button("info_button", (0, 0), button_dimensions, info_page, "Settings",
+info_button = Button("info_button", (0, 0), button_dimensions, info_page, "Info",
                      pygame.font.SysFont(font_style, 12))
 button_list = [start_button, info_button]
 menu_page = Page(display, button_list)
