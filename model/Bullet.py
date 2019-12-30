@@ -6,7 +6,7 @@ from model.Observer import Observer
 
 class Bullet(Observer):
     RADIUS: int = 10
-    COLOUR: tuple = (0, 0, 255)
+    COLOUR: tuple = (100, 100, 255)
     display: Surface
     x: int
     y: int
