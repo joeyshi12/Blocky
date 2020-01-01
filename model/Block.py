@@ -6,6 +6,7 @@ class Block:
     WIDTH: int = 80
     HEIGHT: int = 60
     COLOUR: tuple = (255, 0, 0)
+
     display: Surface
     x: int
     y: int

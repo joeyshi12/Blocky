@@ -7,6 +7,7 @@ from model.Observer import Observer
 class Bullet(Observer):
     RADIUS: int = 10
     COLOUR: tuple = (100, 100, 255)
+
     display: Surface
     x: int
     y: int
@@ -25,11 +26,11 @@ class Bullet(Observer):
         self.y += self.vy
         if self.x < 0:
             self.vx = abs(self.vx)
-        if self.display.get_width() < self.x:
+        if self.x > self.display.get_width():
             self.vx = -abs(self.vx)
         if self.y < 0:
             self.vy = abs(self.vy)
-        if self.display.get_height() < self.y:
+        if self.y > self.display.get_height():
             self.vy = -abs(self.vy)
 
     def draw(self):
