@@ -11,12 +11,12 @@ class TestBlock(unittest.TestCase):
 
     def test_update(self):
         self.block.update()
-        self.assertEqual(self.block.x, 0)
-        self.assertEqual(self.block.y, 0)
+        self.assertEqual(self.block.rect.x, 0)
+        self.assertEqual(self.block.rect.y, 0)
 
         self.block.dx = 10
         self.block.dy = 10
         self.block.update()
 
-        self.assertEqual(self.block.x, 10)
-        self.assertEqual(self.block.y, 10)
+        self.assertEqual(self.block.rect.x, 10)
+        self.assertEqual(self.block.rect.y, 10)

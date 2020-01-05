@@ -15,19 +15,19 @@ class TestBullet(unittest.TestCase):
 
     def test_update(self):
         self.bullet.update()
-        self.assertEqual(self.bullet.x, 99)
-        self.assertEqual(self.bullet.y, 3)
+        self.assertEqual(self.bullet.rect.x, 99)
+        self.assertEqual(self.bullet.rect.y, 3)
         self.assertEqual(self.bullet.dx, 3)
         self.assertEqual(self.bullet.dy, 3)
 
         self.bullet.update()
-        self.assertEqual(self.bullet.x, 102)
-        self.assertEqual(self.bullet.y, 6)
+        self.assertEqual(self.bullet.rect.x, 102)
+        self.assertEqual(self.bullet.rect.y, 6)
         self.assertEqual(self.bullet.dx, -3)
         self.assertEqual(self.bullet.dy, 3)
 
         self.bullet.update()
-        self.assertEqual(self.bullet.x, 99)
-        self.assertEqual(self.bullet.y, 9)
+        self.assertEqual(self.bullet.rect.x, 99)
+        self.assertEqual(self.bullet.rect.y, 9)
         self.assertEqual(self.bullet.dx, -3)
         self.assertEqual(self.bullet.dy, 3)
