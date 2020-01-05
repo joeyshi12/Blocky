@@ -41,9 +41,9 @@ def info_page():
 
 
 def random_vel():
-    vx = rand.choice([-6, 0, 6])
-    vy = rand.choice([-6, 0, 6])
-    return vx, vy
+    dx = rand.choice([-6, 0, 6])
+    dy = rand.choice([-6, 0, 6])
+    return dx, dy
 
 
 def run_ai():
@@ -56,9 +56,9 @@ def run_ai():
             game_run.reset()
             menu()
         display.fill(black)
-        game_run.draw()
-        game_run.block.vx, game_run.block.vy = random_vel()
-        game_run.update_game()
+        game_run.render()
+        game_run.block.dx, game_run.block.dy = random_vel()
+        game_run.update()
         pygame.display.update()
         clock.tick(100)
 
@@ -77,8 +77,8 @@ def main():
             game_run.reset()
             menu()
         display.fill(black)
-        game_run.draw()
-        game_run.update_game()
+        game_run.render()
+        game_run.update()
         pygame.display.update()
         clock.tick(100)
 

@@ -5,6 +5,8 @@ from model.Button import Button
 
 
 class Page:
+    display: Surface
+
     def __init__(self, display: Surface, button_list=None):
         """Initializes background and buttonList. Background may be either a
         blank canvas or an image"""
@@ -36,26 +38,26 @@ class Page:
         elif orientation == 'vertical':
             self.orient_vertical(padding, start_pos)
 
-    def orient_vertical(self, padding, start_pos):
+    def orient_vertical(self, padding: int, start_pos: tuple):
         length = len(self.button_list)
         for i in range(length):
             button = self.button_list[i]
             new_pos = (start_pos[0], start_pos[1] + i * padding)
             self.button_list[i] = Button(button.identifier,
                                          new_pos,
-                                         (button.button_rect.width, button.button_rect.height),
+                                         (button.rect.width, button.rect.height),
                                          button.command,
                                          button.text,
                                          button.font)
 
-    def orient_horizontal(self, padding, start_pos):
+    def orient_horizontal(self, padding: int, start_pos: tuple):
         length = len(self.button_list)
         for i in range(length):
             button = self.button_list[i]
             new_pos = (start_pos[0] + i * padding, start_pos[1])
             self.button_list[i] = Button(button.identifier,
                                          new_pos,
-                                         (button.button_rect.width, button.button_rect.height),
+                                         (button.rect.width, button.rect.height),
                                          button.command,
                                          button.text,
                                          button.font)

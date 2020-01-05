@@ -29,19 +29,18 @@ class GameRun(Subject):
         for i in range(self.NUMBER_OF_BULLETS):
             bullet_x = rand.randint(0, self.display.get_width())
             bullet_y = rand.randint(0, self.display.get_height())
-            bullet_vx = rand.choice(self.BULLET_VELOCITIES)
-            bullet_vy = rand.choice(self.BULLET_VELOCITIES)
-            bullet = Bullet(self.display, (bullet_x, bullet_y), (bullet_vx, bullet_vy))
+            bullet_dx = rand.choice(self.BULLET_VELOCITIES)
+            bullet_dy = rand.choice(self.BULLET_VELOCITIES)
+            bullet = Bullet(self.display, (bullet_x, bullet_y), (bullet_dx, bullet_dy))
             self.add_observer(bullet)
 
     def collide_wall(self) -> bool:
-        return self.block.x < 0 or self.block.x + self.block.WIDTH > self.display.get_width() or \
-               self.block.y < 0 or self.block.y + self.block.HEIGHT > self.display.get_height()
+        return self.block.rect.x < 0 or self.block.rect.x + self.block.WIDTH > self.display.get_width() or \
+               self.block.rect.y < 0 or self.block.rect.y + self.block.HEIGHT > self.display.get_height()
 
     def collide_bullet(self) -> bool:
         for bullet in self.observers:
-            if self.block.x <= bullet.x <= self.block.x + self.block.WIDTH and \
-                    self.block.y <= bullet.y <= self.block.y + self.block.HEIGHT:
+            if self.block.rect.colliderect(bullet.rect):
                 return True
         return False
 
@@ -52,23 +51,23 @@ class GameRun(Subject):
     def reset(self):
         """resets block to center position with 0 velocity and randomizes bullet movement fields"""
         self.score.current_score = 0
-        self.block.x = self.display.get_width() / 2 - self.block.WIDTH / 2
-        self.block.y = self.display.get_height() / 2 - self.block.HEIGHT / 2
-        self.block.vx = 0
-        self.block.vy = 0
+        self.block.rect.x = self.display.get_width() / 2 - self.block.WIDTH / 2
+        self.block.rect.y = self.display.get_height() / 2 - self.block.HEIGHT / 2
+        self.block.dx = 0
+        self.block.dy = 0
         for bullet in self.observers:
-            bullet.x = rand.randint(0, self.display.get_width())
-            bullet.y = rand.randint(0, self.display.get_height())
-            bullet.vx = rand.choice(self.BULLET_VELOCITIES)
-            bullet.vy = rand.choice(self.BULLET_VELOCITIES)
+            bullet.rect.x = rand.randint(0, self.display.get_width())
+            bullet.rect.y = rand.randint(0, self.display.get_height())
+            bullet.dx = rand.choice(self.BULLET_VELOCITIES)
+            bullet.dy = rand.choice(self.BULLET_VELOCITIES)
 
-    def update_game(self):
+    def update(self):
         """updates game state"""
         self.score.update()
         self.block.update()
         self.notify_observers()
 
-    def draw(self):
+    def render(self):
         """draws display for game-loop"""
         self.score.draw()
         self.block.draw()
@@ -78,22 +77,22 @@ class GameRun(Subject):
     def key_handle_down(self, key: int):
         """updates the velocity of block based on the key pressed down"""
         if key == pygame.K_w:
-            self.block.vy = -self.BLOCK_VELOCITY
+            self.block.dy = -self.BLOCK_VELOCITY
         elif key == pygame.K_a:
-            self.block.vx = -self.BLOCK_VELOCITY
+            self.block.dx = -self.BLOCK_VELOCITY
         elif key == pygame.K_s:
-            self.block.vy = self.BLOCK_VELOCITY
+            self.block.dy = self.BLOCK_VELOCITY
         elif key == pygame.K_d:
-            self.block.vx = self.BLOCK_VELOCITY
+            self.block.dx = self.BLOCK_VELOCITY
 
     def key_handle_up(self, key: int):
         """for any direction, if the block has velocity in the same direction as its corresponding key, then
         the velocity in that direction is set back to 0"""
-        if key == pygame.K_w and self.block.vy == -self.BLOCK_VELOCITY:
-            self.block.vy = 0
-        elif key == pygame.K_a and self.block.vx == -self.BLOCK_VELOCITY:
-            self.block.vx = 0
-        elif key == pygame.K_s and self.block.vy == self.BLOCK_VELOCITY:
-            self.block.vy = 0
-        elif key == pygame.K_d and self.block.vx == self.BLOCK_VELOCITY:
-            self.block.vx = 0
+        if key == pygame.K_w and self.block.dy == -self.BLOCK_VELOCITY:
+            self.block.dy = 0
+        elif key == pygame.K_a and self.block.dx == -self.BLOCK_VELOCITY:
+            self.block.dx = 0
+        elif key == pygame.K_s and self.block.dy == self.BLOCK_VELOCITY:
+            self.block.dy = 0
+        elif key == pygame.K_d and self.block.dx == self.BLOCK_VELOCITY:
+            self.block.dx = 0
