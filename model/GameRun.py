@@ -11,8 +11,7 @@ from model.Subject import Subject
 
 class GameRun(Subject):
     BLOCK_VELOCITY: int = 6
-    NUMBER_OF_BULLETS: int = 3
-    BULLET_VELOCITIES: list = [-8, -7, -6, 6, 7, 8]
+    BULLET_VELOCITIES: list = list(range(-10, 9)) + list(range(2,10))
 
     display: Surface
     score: Score
@@ -26,7 +25,8 @@ class GameRun(Subject):
 
     def initialize_bullets(self):
         """creates NUMBER_OF_BULLETS of bullets with random movement fields"""
-        for i in range(self.NUMBER_OF_BULLETS):
+        rand_int = rand.randrange(2, 5, 1)
+        for i in range(rand_int):
             bullet_x = rand.randint(0, self.display.get_width())
             bullet_y = rand.randint(0, self.display.get_height())
             bullet_dx = rand.choice(self.BULLET_VELOCITIES)
@@ -55,11 +55,8 @@ class GameRun(Subject):
         self.block.rect.y = self.display.get_height() / 2 - self.block.HEIGHT / 2
         self.block.dx = 0
         self.block.dy = 0
-        for bullet in self.observers:
-            bullet.rect.x = rand.randint(0, self.display.get_width())
-            bullet.rect.y = rand.randint(0, self.display.get_height())
-            bullet.dx = rand.choice(self.BULLET_VELOCITIES)
-            bullet.dy = rand.choice(self.BULLET_VELOCITIES)
+        self.observers.clear()
+        self.initialize_bullets()
 
     def update(self):
         """updates game state"""
