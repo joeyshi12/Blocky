@@ -1,7 +1,6 @@
 import unittest
 
 import pygame
-from pygame.surface import Surface
 
 from model.Bullet import Bullet
 
