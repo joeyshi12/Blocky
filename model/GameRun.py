@@ -11,7 +11,7 @@ from model.Subject import Subject
 
 class GameRun(Subject):
     BLOCK_VELOCITY: int = 6
-    BULLET_VELOCITIES: list = list(range(-10, 9)) + list(range(2,10))
+    BULLET_VELOCITIES: list = list(range(-10, -5)) + list(range(5, 10))
 
     display: Surface
     score: Score
@@ -25,7 +25,7 @@ class GameRun(Subject):
 
     def initialize_bullets(self):
         """creates NUMBER_OF_BULLETS of bullets with random movement fields"""
-        rand_int = rand.randrange(2, 5, 1)
+        rand_int = rand.randrange(3, 5, 1)
         for i in range(rand_int):
             bullet_x = rand.randint(0, self.display.get_width())
             bullet_y = rand.randint(0, self.display.get_height())
