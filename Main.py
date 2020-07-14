@@ -4,6 +4,7 @@ from model.Button import Button
 from model.GameRun import GameRun
 from model.Page import Page
 import random as rand
+import os
 
 pygame.init()
 pygame.display.set_caption('Blocky World Program')
@@ -40,10 +41,11 @@ def info_page():
     info_page.page_loop(draw_fn)
 
 
-def random_vel():
-    dx = rand.choice([-6, 0, 6])
-    dy = rand.choice([-6, 0, 6])
-    return dx, dy
+def set_ai_direction():
+    game_run.block.moveUp = bool(rand.getrandbits(1))
+    game_run.block.moveLeft = bool(rand.getrandbits(1))
+    game_run.block.moveDown = bool(rand.getrandbits(1))
+    game_run.block.moveRight = bool(rand.getrandbits(1))
 
 
 def run_ai():
@@ -57,7 +59,7 @@ def run_ai():
             menu()
         display.fill(black)
         game_run.render()
-        game_run.block.dx, game_run.block.dy = random_vel()
+        set_ai_direction()
         game_run.update()
         pygame.display.update()
         clock.tick(100)
@@ -73,7 +75,7 @@ def main():
                 game_run.key_handle_down(event.key)
             if event.type == pygame.KEYUP:
                 game_run.key_handle_up(event.key)
-        if game_run.is_game_over():
+        if game_run.block.hasCollided():
             game_run.reset()
             menu()
         display.fill(black)
@@ -98,14 +100,14 @@ button_list = [start_button, run_ai_button, info_button]
 menu_page = Page(display, button_list)
 menu_page.arrange_buttons("vertical", (display_width / 2 - 50, display_height / 2 - 20), 60)
 
+
 # Info Components
 info_image = pygame.image.load('data/control_info.jpg')
-info_image_width = int(display_width / 2)
-info_image_height = int(display_height / 2)
-info_image = pygame.transform.scale(info_image, (info_image_width, info_image_height))
+info_image = pygame.transform.scale(info_image, (display_width // 2, display_height // 2))
 back_button = Button("back_button", ((display_width - button_dimensions[0]) / 2, display_height / 2 + 100),
                      button_dimensions, menu, "Back", pygame.font.SysFont(font_style, 12))
 info_page = Page(display, [back_button])
+
 
 if __name__ == '__main__':
     game_run = GameRun(display)

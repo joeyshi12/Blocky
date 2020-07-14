@@ -2,10 +2,8 @@ import pygame
 from pygame.rect import Rect
 from pygame.surface import Surface
 
-from model.Observer import Observer
 
-
-class Bullet(Observer):
+class Bullet:
     RADIUS: int = 10
     COLOUR: tuple = (100, 100, 255)
 
