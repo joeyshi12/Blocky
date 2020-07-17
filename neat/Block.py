@@ -14,6 +14,8 @@ class Block:
     moveDown: bool
     moveLeft: bool
     moveRight: bool
+    isAlive: bool
+    timeAlive: int = 0
 
     def __init__(self, display: Surface, pos: tuple, bullets: list):
         self.display = display
@@ -23,9 +25,13 @@ class Block:
         self.moveDown = False
         self.moveLeft = False
         self.moveRight = False
+        self.isAlive = True
 
     def update(self):
         """updates block position"""
+        self.timeAlive += 0.01
+        if self.hasCollided():
+            self.isAlive = False
         if self.moveUp:
             if self.rect.y > 0:
                 self.rect.y -= self.SPEED
@@ -48,3 +54,9 @@ class Block:
     def draw(self):
         """draws block on display"""
         pygame.draw.rect(self.display, self.COLOUR, self.rect)
+
+    def getData(self):
+        data = [self.rect.x, self.rect.y]
+        for bullet in self.bullets:
+            data.append((self.rect.x - bullet.rect.x) ** 2 + (self.rect.y - bullet.rect.y) ** 2)
+        return data

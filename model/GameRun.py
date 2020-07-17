@@ -9,7 +9,7 @@ from model.Score import Score
 
 
 class GameRun:
-    BULLET_VELOCITIES: list = list(range(-8, -4)) + list(range(4, 8))
+    BULLET_VELOCITIES: list = list(range(-8, -5)) + list(range(5, 8))
     num_bullets: int = 3
     bullets: list = []
     display: Surface

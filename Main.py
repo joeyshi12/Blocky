@@ -54,7 +54,7 @@ def run_ai():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-        if game_run.is_game_over():
+        if game_run.block.hasCollided():
             game_run.reset()
             menu()
         display.fill(black)
