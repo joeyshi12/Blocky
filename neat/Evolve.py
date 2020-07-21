@@ -1,93 +1,62 @@
-import pygame
-import os
-import math
-import sys
+import pickle
 import random
+import sys
+
 import neat
+import visualize
+from joblib import dump
+import pygame
 from Block import Block
 from Bullet import Bullet
 
-display_width = 800
-display_height = 500
+surface_width = 800
+surface_height = 500
 generation = 0
-
-def random_bullets(display, num_bullets):
-    """creates num_bullets of bullets with random movement fields"""
-    bullets = list()
-    bullet_velocities = [-7, 7]
-    for i in range(num_bullets):
-        bullet_x = random.choice([random.randint(0, display.get_width() // 4), random.randint(3 * display.get_width() // 4, display.get_width())])
-        bullet_y = random.choice([random.randint(0, display.get_height() // 4), random.randint(3 * display.get_height() // 4, display.get_height())])
-        bullet_dy = random.choice(bullet_velocities)
-        bullet_dx = random.choice(bullet_velocities)
-        bullet = Bullet(display, (bullet_x, bullet_y), (bullet_dx, bullet_dy))
-        bullets.append(bullet)
-    return bullets
+num_bullets = 3
 
 
-def run_genome(genomes, config):
+def eval_genomes(genomes, config):
     # Init game
     pygame.init()
     pygame.display.set_caption('Blocky World Program')
     clock = pygame.time.Clock()
-    display = pygame.display.set_mode((display_width, display_height))
-    bullets = random_bullets(display, 3)
+    surface = pygame.display.set_mode((surface_width, surface_height))
+    bullets = [Bullet(surface) for _ in range(3)]
     generation_font = pygame.font.SysFont("Arial", 70)
     font = pygame.font.SysFont("Arial", 30)
 
     # Init NEAT
-    nets = list()
     blocks = list()
 
     for id, g in genomes:
-        net = neat.nn.FeedForwardNetwork.create(g, config)
-        nets.append(net)
+        network = neat.nn.FeedForwardNetwork.create(g, config)
         g.fitness = 0
 
         # Init my cars
-        blocks.append(Block(display, (display_width // 2, display_height // 2), bullets))
+        blocks.append(Block(surface, (surface_width // 2, surface_height // 2), bullets, network=network))
 
     # Main loop
     global generation
     generation += 1
     while True:
-        display.fill((0,0,0))
+        surface.fill((0, 0, 0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit(0)
 
-        # Input my data and get result from network
-        for index, block in enumerate(blocks):
-            output = nets[index].activate(block.getData())
-            i = output.index(max(output))
-            if i == 0:
-                block.moveUp = True
-                block.moveDown = False
-                block.moveLeft = False
-                block.moveRight = False
-            if i == 1:
-                block.moveUp = False
-                block.moveDown = True
-                block.moveLeft = False
-                block.moveRight = False
-            if i == 2:
-                block.moveUp = False
-                block.moveDown = False
-                block.moveLeft = True
-                block.moveRight = False
-            if i == 3:
-                block.moveUp = False
-                block.moveDown = False
-                block.moveLeft = False
-                block.moveRight = True
+        # Each block predicts next move
+        for block in blocks:
+            block.predict()
 
-        # Update car and fitness
+        # Update block and fitness
         remain_blocks = 0
         for i, block in enumerate(blocks):
-            if block.isAlive:
+            if block.is_alive:
                 remain_blocks += 1
                 block.update()
-                genomes[i][1].fitness += block.timeAlive
+                genomes[i][1].fitness += 0.1
+                if block.check_collide_wall():
+                    genomes[i][1].fitness -= 0.5
 
         for bullet in bullets:
             bullet.update()
@@ -99,21 +68,21 @@ def run_genome(genomes, config):
 
         # Drawing
         for block in blocks:
-            if block.isAlive:
+            if block.is_alive:
                 block.draw()
 
         text = generation_font.render("Generation : " + str(generation), True, (255, 255, 0))
         text_rect = text.get_rect()
-        text_rect.center = (display_width/2, 100)
-        display.blit(text, text_rect)
+        text_rect.center = (surface_width / 2, 100)
+        surface.blit(text, text_rect)
 
         text = font.render("remaining blocks : " + str(remain_blocks), True, (255, 255, 0))
         text_rect = text.get_rect()
-        text_rect.center = (display_width/2, 200)
-        display.blit(text, text_rect)
+        text_rect.center = (surface_width / 2, 200)
+        surface.blit(text, text_rect)
 
         pygame.display.flip()
-        clock.tick(120)
+        clock.tick(0)
 
 
 if __name__ == "__main__":
@@ -131,4 +100,13 @@ if __name__ == "__main__":
     p.add_reporter(stats)
 
     # Run NEAT
-    p.run(run_genome, 1000)
+    winner = p.run(eval_genomes, 100)
+    with open('winner.pkl', 'wb') as output:
+        pickle.dump(winner, output, 1)
+
+    visualize.draw_net(config, winner, True)
+    visualize.plot_stats(stats, ylog=False, view=True)
+    visualize.plot_species(stats, view=True)
+
+
+

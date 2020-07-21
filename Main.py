@@ -42,10 +42,10 @@ def info_page():
 
 
 def set_ai_direction():
-    game_run.block.moveUp = bool(rand.getrandbits(1))
-    game_run.block.moveLeft = bool(rand.getrandbits(1))
-    game_run.block.moveDown = bool(rand.getrandbits(1))
-    game_run.block.moveRight = bool(rand.getrandbits(1))
+    game_run.block.move_up = bool(rand.getrandbits(1))
+    game_run.block.move_left = bool(rand.getrandbits(1))
+    game_run.block.move_down = bool(rand.getrandbits(1))
+    game_run.block.move_right = bool(rand.getrandbits(1))
 
 
 def run_ai():
@@ -54,7 +54,7 @@ def run_ai():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-        if game_run.block.hasCollided():
+        if game_run.block.check_collision():
             game_run.reset()
             menu()
         display.fill(black)
@@ -75,7 +75,7 @@ def main():
                 game_run.key_handle_down(event.key)
             if event.type == pygame.KEYUP:
                 game_run.key_handle_up(event.key)
-        if game_run.block.hasCollided():
+        if game_run.block.check_collision():
             game_run.reset()
             menu()
         display.fill(black)
