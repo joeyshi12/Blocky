@@ -10,6 +10,7 @@ class Score:
     current_score: int = 0
     high_score: int
     font: Font
+    start: int
 
     def __init__(self, display: Surface):
         self.display = display
@@ -28,9 +29,12 @@ class Score:
         self.high_score = int(file.read())
         file.close()
 
+    def start_timer(self):
+        self.start = pygame.time.get_ticks()
+
     def update(self):
         """updates current_score and high_score for next game frame"""
-        self.current_score += 1
+        self.current_score = (pygame.time.get_ticks() - self.start) // 1000
         self.high_score = max([self.current_score, self.high_score])
 
     def draw(self):

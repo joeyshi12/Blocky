@@ -4,8 +4,8 @@ import sys
 import neat
 import visualize
 import pygame
-from Block import Block
-from Bullet import Bullet
+from model.Block import Block
+from model.Bullet import Bullet
 
 surface_width = 800
 surface_height = 500
@@ -48,7 +48,7 @@ def test_network(network):
         surface.blit(text, text_rect)
 
         pygame.display.flip()
-        clock.tick(160)
+        clock.tick(200)
 
 
 if __name__ == "__main__":

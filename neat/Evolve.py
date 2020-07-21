@@ -6,8 +6,8 @@ import neat
 import visualize
 from joblib import dump
 import pygame
-from Block import Block
-from Bullet import Bullet
+from model.Block import Block
+from model.Bullet import Bullet
 
 surface_width = 800
 surface_height = 500

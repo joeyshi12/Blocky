@@ -1,3 +1,6 @@
+import pickle
+
+import neat
 import pygame
 
 from model.Button import Button
@@ -32,8 +35,8 @@ def menu():
 
 
 def info_page():
-    info_image_x = int(display_width / 2 - info_image_width / 2)
-    info_image_y = int(info_image_height / 5)
+    info_image_x = int(display_width / 2 - info_image.get_width() / 2)
+    info_image_y = int(info_image.get_height() / 5)
 
     def draw_fn():
         display.blit(info_image, (info_image_x, info_image_y))
@@ -41,31 +44,33 @@ def info_page():
     info_page.page_loop(draw_fn)
 
 
-def set_ai_direction():
-    game_run.block.move_up = bool(rand.getrandbits(1))
-    game_run.block.move_left = bool(rand.getrandbits(1))
-    game_run.block.move_down = bool(rand.getrandbits(1))
-    game_run.block.move_right = bool(rand.getrandbits(1))
-
-
-def run_ai():
+def test_ai():
+    config_path = "./neat/config-feedforward.txt"
+    config = neat.config.Config(neat.DefaultGenome, neat.DefaultReproduction,
+                                neat.DefaultSpeciesSet, neat.DefaultStagnation, config_path)
+    with open('./neat/winner.pkl', 'rb') as f:
+        c = pickle.load(f)
+    network = neat.nn.FeedForwardNetwork.create(c, config)
+    game_run.block.network = network
+    game_run.score.start_timer()
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-        if game_run.block.check_collision():
+        if game_run.block.check_collide_bullet():
             game_run.reset()
             menu()
-        display.fill(black)
+        display.fill((0, 0, 0))
         game_run.render()
-        set_ai_direction()
+        game_run.block.predict()
         game_run.update()
         pygame.display.update()
-        clock.tick(100)
+        clock.tick(200)
 
 
 def main():
+    game_run.score.start_timer()
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -75,30 +80,31 @@ def main():
                 game_run.key_handle_down(event.key)
             if event.type == pygame.KEYUP:
                 game_run.key_handle_up(event.key)
-        if game_run.block.check_collision():
+        if game_run.check_game_over():
             game_run.reset()
             menu()
-        display.fill(black)
+        display.fill((0, 0, 0))
         game_run.render()
         game_run.update()
         pygame.display.update()
-        clock.tick(100)
+        clock.tick(200)
 
 
 # Menu Components
 button_dimensions = (100, 40)
 font_style = "lucidaconsole"
 title_font = pygame.font.SysFont(font_style, 72)
-title = title_font.render("BLOCKY", True, red)
+title = title_font.render("BLOCKY", True, (255, 0, 0))
 start_button = Button("start_button", (0, 0), button_dimensions, main, "Start",
                       pygame.font.SysFont(font_style, 12))
-run_ai_button = Button("run_ai_button", (0, 0), button_dimensions, run_ai, "Run A.I.",
+run_ai_button = Button("run_ai_button", (0, 0), button_dimensions, test_ai, "Run A.I.",
                        pygame.font.SysFont(font_style, 12))
 info_button = Button("info_button", (0, 0), button_dimensions, info_page, "Info",
                      pygame.font.SysFont(font_style, 12))
 button_list = [start_button, run_ai_button, info_button]
 menu_page = Page(display, button_list)
-menu_page.arrange_buttons("vertical", (display_width / 2 - 50, display_height / 2 - 20), 60)
+menu_page.arrange_buttons("vertical", (display_width // 2 - button_dimensions[0] // 2,
+                                       display_height // 2 - button_dimensions[1] // 2), 60)
 
 
 # Info Components
