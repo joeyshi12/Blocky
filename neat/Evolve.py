@@ -56,7 +56,7 @@ def eval_genomes(genomes, config):
                 block.update()
                 genomes[i][1].fitness += 0.1
                 if block.check_collide_wall():
-                    genomes[i][1].fitness -= 0.5
+                    genomes[i][1].fitness -= 1
 
         for bullet in bullets:
             bullet.update()
