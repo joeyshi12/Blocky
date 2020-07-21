@@ -55,7 +55,7 @@ def main():
             bullet.draw()
 
         if not block.is_alive:
-            print(score)
+            print(round(score))
             break
 
         text = score_font.render("Score: " + str(round(score)), True, (255, 255, 0))

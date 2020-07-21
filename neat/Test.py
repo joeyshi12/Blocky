@@ -32,17 +32,17 @@ def test_network(network):
         if block.is_alive:
             block.update()
             block.draw()
-            score += 1
+            score += 0.1
 
         for bullet in bullets:
             bullet.update()
             bullet.draw()
 
         if not block.is_alive:
-            print(score // 2)
+            print(round(score))
             break
 
-        text = score_font.render("Score: " + str(score // 2), True, (255, 255, 0))
+        text = score_font.render("Score: " + str(round(score)), True, (255, 255, 0))
         text_rect = text.get_rect()
         text_rect.center = (surface_width / 2, 100)
         surface.blit(text, text_rect)
