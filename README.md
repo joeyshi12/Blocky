@@ -1,4 +1,4 @@
-# block-bullet-dodge
+# bullet-dodger-ai
 
 An a.i. designed to play a simple "bullet-hell" Pygame. The agent is a sliding block whose goal is to avoid obstacles, such as the bouncing bullets and the walls. The neural network for the agent was trained using NEAT-python. 
 
