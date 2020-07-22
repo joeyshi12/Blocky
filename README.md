@@ -4,7 +4,7 @@ An a.i. designed to play a simple "bullet-hell" Pygame. The agent is a sliding b
 
 ## Requirements
 
-1. Pygame
+1. pygame
 2. neat-python
 
 ## Snapshots
