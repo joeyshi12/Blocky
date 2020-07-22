@@ -1,16 +1,11 @@
-# blocky-bullet-dodge
+# block-bullet-dodge
 
-A simple user-interactive game developed on Pygame. You control a movable block and the goal is to avoid obstacles, such as the other moving particles and the walls.
+An a.i. designed to play a simple "bullet-hell" Pygame. The agent is a sliding block whose goal is to avoid obstacles, such as the bouncing bullets and the walls. The neural network for the agent was trained using NEAT-python. 
 
-## Getting Started
+## Requirements
 
-1. Clone the repository. \
-```git clone https://github.com/joeyshi12/blocky.git```
-
-2. Install pygame. \
-```pip install --user pygame```
-
-3. Inside of project folder, run main.cmd.
+1. Pygame
+2. neat-python
 
 ## Snapshots
 
