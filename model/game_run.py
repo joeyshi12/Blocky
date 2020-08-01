@@ -3,9 +3,9 @@ import random as rand
 import pygame
 from pygame.surface import Surface
 
-from model.Block import Block
-from model.Bullet import Bullet
-from model.Score import Score
+from model.block import Block
+from model.bullet import Bullet
+from model.score import Score
 
 
 class GameRun:

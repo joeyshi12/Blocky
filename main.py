@@ -3,9 +3,9 @@ import pickle
 import neat
 import pygame
 
-from model.Button import Button
-from model.GameRun import GameRun
-from model.Page import Page
+from model.button import Button
+from model.game_run import GameRun
+from model.page import Page
 import random as rand
 import os
 
@@ -15,7 +15,7 @@ icon = pygame.image.load('data/chiken.jpg')
 icon = pygame.transform.scale(icon, (32, 32))
 pygame.display.set_icon(icon)
 clock = pygame.time.Clock()
-display_width = 800
+display_width = 700
 display_height = 500
 display = pygame.display.set_mode((display_width, display_height))
 
@@ -66,7 +66,7 @@ def test_ai():
         game_run.block.predict()
         game_run.update()
         pygame.display.update()
-        clock.tick(200)
+        clock.tick(120)
 
 
 def main():
@@ -87,7 +87,7 @@ def main():
         game_run.render()
         game_run.update()
         pygame.display.update()
-        clock.tick(200)
+        clock.tick(120)
 
 
 # Menu Components

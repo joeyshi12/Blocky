@@ -1,13 +1,12 @@
 import pickle
 import sys
-
 import neat
 import visualize
 import pygame
-from model.Block import Block
-from model.Bullet import Bullet
+from model.block import Block
+from model.bullet import Bullet
 
-surface_width = 800
+surface_width = 700
 surface_height = 500
 num_bullets = 3
 

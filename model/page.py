@@ -1,7 +1,7 @@
 import pygame
 from pygame.surface import Surface
 
-from model.Button import Button
+from model.button import Button
 
 
 class Page:

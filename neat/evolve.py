@@ -6,10 +6,10 @@ import neat
 import visualize
 from joblib import dump
 import pygame
-from model.Block import Block
-from model.Bullet import Bullet
+from model.block import Block
+from model.bullet import Bullet
 
-surface_width = 800
+surface_width = 700
 surface_height = 500
 generation = 0
 num_bullets = 3
@@ -33,7 +33,9 @@ def eval_genomes(genomes, config):
         g.fitness = 0
 
         # Init my cars
-        blocks.append(Block(surface, (surface_width // 2, surface_height // 2), bullets, network=network))
+        x = random.gauss(surface_width // 2, 70)
+        y = random.gauss(surface_height // 2, 50)
+        blocks.append(Block(surface, (x, y), bullets, network=network))
 
     # Main loop
     global generation
@@ -54,9 +56,7 @@ def eval_genomes(genomes, config):
             if block.is_alive:
                 remain_blocks += 1
                 block.update()
-                genomes[i][1].fitness += 0.1
-                if block.check_collide_wall():
-                    genomes[i][1].fitness -= 1
+                genomes[i][1].fitness += 0.5
 
         for bullet in bullets:
             bullet.update()
@@ -100,7 +100,7 @@ if __name__ == "__main__":
     p.add_reporter(stats)
 
     # Run NEAT
-    winner = p.run(eval_genomes, 100)
+    winner = p.run(eval_genomes, 2000)
     with open('winner.pkl', 'wb') as output:
         pickle.dump(winner, output, 1)
 
